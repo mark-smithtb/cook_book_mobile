@@ -1,0 +1,3 @@
+rootProject.name = 'cook_book_mobile'
+
+include ':app'
