@@ -67,10 +67,7 @@ class LoginForm extends Component {
         {this.renderError()}
         <Hoshi
           label={'Username'}
-          // this is used as active border color
           borderColor={'#b76c94'}
-          // this is used to set backgroundColor of label mask.
-          // please pass the backgroundColor of your TextInput container.
           backgroundColor={'#FFF'}
           onChangeText={this.emailChanged.bind(this)}
           value={this.props.email}
@@ -78,10 +75,7 @@ class LoginForm extends Component {
 
         <Hoshi
           label={'Password'}
-          // this is used as active border color
           borderColor={'#b76c94'}
-          // this is used to set backgroundColor of label mask.
-          // please pass the backgroundColor of your TextInput container.
           backgroundColor={'#FFF'}
           onChangeText={this.passwordChanged.bind(this)}
           value={this.props.password}

@@ -11,7 +11,7 @@ class App extends Component {
     return (
       <Provider store={createStore(Reducers, applyMiddleware(logger))}>
         <View>
-          <LoginForm />
+          <RegistationForm />
         </View>
       </Provider>
     );

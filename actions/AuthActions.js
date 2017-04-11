@@ -18,7 +18,7 @@ export const loginUser = ({ email, password }) => {
     dispatch({
       type: 'LOAD_SPINNER'
     });
-    fetch('http://localhost:3000/token', {
+    fetch('http://localhost:3000/users/sign_in', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -56,7 +56,7 @@ export const registerUser = ({ email, password }) => {
     dispatch({
       type: 'LOAD_SPINNER'
     });
-    fetch('http://localhost:3000/token', {
+    fetch('http://localhost:3000/users', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -73,14 +73,14 @@ export const registerUser = ({ email, password }) => {
         if (response.status === 401) {
           console.log('AUTHENTICATION ERROR!!');
           dispatch({
-            type: 'LOGIN_FAILED'
+            type: 'REGISTRATION_FAILED'
           });
         } else {
           console.log('SUCCESS!!');
           response.json().then(data => {
             console.log(data);
             dispatch({
-              type: 'LOGIN_USER_SUCCESS',
+              type: 'REGISTRATION_SUCCESS',
               payload: data
             });
           });
