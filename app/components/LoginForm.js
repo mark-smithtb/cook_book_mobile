@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { Hoshi } from 'react-native-textinput-effects';
-import Button from 'react-native-button';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, registerUser } from '../actions/';
+import { emailChanged, passwordChanged, loginUser } from '../actions/AuthActions';
 
-class LoginForm extends Component {
+var LoginForm = React.createClass({
   onButtonSubmit() {
     console.log('Submitted: ', `${this.props.email} ${this.props.password}`);
     const { email, password } = this.props;
@@ -56,7 +55,7 @@ class LoginForm extends Component {
           styleDisabled={{ color: 'red' }}
           onPress={this.onButtonSubmit.bind(this)}
         >
-        Login
+        Sign Up
       </Button>
       );
   }
@@ -86,7 +85,7 @@ class LoginForm extends Component {
       </View>
     );
   }
-}
+});
 
 const styles = {
   viewStyle: {
