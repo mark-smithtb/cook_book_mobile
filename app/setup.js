@@ -1,21 +1,22 @@
+import App from './components/App';
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import { createStore, applyMiddleware } from 'redux';
-import { logger } from 'redux-logger';
 import { Provider } from 'react-redux';
-import Reducers from './reducers/';
-import LoginForm from './components/LoginForm';
+import configureStore from './store';
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={createStore(Reducers, applyMiddleware(logger))}>
-        <View>
-          <RegistationForm />
-        </View>
-      </Provider>
-    );
+const store = configureStore();
+
+function setup() {
+  class Root extends Component {
+    render() {
+      return (
+        <Provider store={store}>
+          <App />
+        </Provider>
+      );
+    }
   }
+
+  return Root;
 }
 
-export default App;
+module.exports = setup;
