@@ -9,17 +9,22 @@ import {
 export const itemsFetch = () => {
   return (dispatch, getState) => {
     const auth_key = getState().auth.user.auth_token
-    console.log(auth_key)
-    fetch('http://localhost:3000/v1/users/friends_feed.json', {
+
+    fetch('https://moochit-staging.herokuapp.com/v1/users/friends_feed.json', {
       method: 'GET',
-      header: {
+      headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': `${auth_key}`
+        'Authorization': auth_key
       }
     })
-    .then(response => {
-      console.log(response)
-    });
+    .then(response => response.json())
+    .then((itemList) => {
+      var itemListObj = {}
+      itemList.forEach(function(data){
+        itemListObj[data.id] = data
+      });
+      dispatch({ type: ITEMS_FETCH_SUCCESS, payload: itemListObj})
+    })
   }
 }

@@ -4,12 +4,38 @@ import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 import { itemsFetch } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
+import Item from './Item';
+import {UrbanAirship} from 'urbanairship-react-native';
 
 class FriendFeed extends Component {
+  componentDidMount() {
+    console.log('hi')
+    UrbanAirship.addListener("register", (event) => {
+      console.log('Channel registration updated: ', event.channelId);
+      console.log('Registration token: ', event.registrationToken);
+      })
+  }
+  componentWillUnmount() {
+    UrbanAirship.removeListener("register", (event) => {
+      console.log('Channel registration updated: ', event.channelId);
+      console.log('Registration token: ', event.registrationToken);
+      })
+  }
   componentWillMount() {
+    var channelId = UrbanAirship.getChannelId().then(channelId => {
+      console.log('Channel: ', channelId);
+    });
+    UrbanAirship.addListener("register", (event) => {
+      console.log('Channel registration updated: ', event.channelId);
+      console.log('Registration token: ', event.registrationToken);
+      })
     this.props.itemsFetch();
-    // console.log(this.props)
+
     this.createDataSource(this.props)
+  }
+  componentWillReceiveProps(nextProps) {
+
+  this.createDataSource(nextProps);
   }
 
   createDataSource({ items }) {
@@ -17,8 +43,9 @@ class FriendFeed extends Component {
       rowHasChanged: (r1, r2) => r1 !== r2
     });
 
-    this.DataSource = ds.cloneWithRows(items)
+    this.dataSource = ds.cloneWithRows(items)
   }
+
 
   renderRow(item) {
     return <Item item={item} />
